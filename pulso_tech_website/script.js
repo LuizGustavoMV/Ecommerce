@@ -247,9 +247,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Atualiza preços ocasionalmente (simulação de mercado dinâmico)
-    setInterval(updateProductCount, 30000); // A cada 30 segundos
-    
     // Inicialização
     console.log('PulsoTech Website carregado com sucesso!');
     console.log('Funcionalidades ativas:');

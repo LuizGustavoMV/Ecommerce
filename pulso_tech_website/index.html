@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PulsoTech - Inovação e Tecnologia</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 50'%3E%3Cellipse cx='25' cy='25' rx='20' ry='15' fill='white' stroke='white' stroke-width='2'/%3E%3Ctext x='30' y='30' font-family='Arial, sans-serif' font-size='12' fill='black' font-weight='bold'%3EPulsoTech%3C/text%3E%3C/svg%3E" alt="PulsoTech">
+            </div>
+            
+            <nav class="nav">
+                <button class="nav-btn" data-page="sobre">
+                    <i class="fas fa-info-circle"></i>
+                    SOBRE
+                </button>
+                <button class="nav-btn" data-page="home">
+                    <i class="fas fa-shopping-bag"></i>
+                    PRODUTOS
+                </button>
+                <button class="nav-btn" data-page="cti">
+                    <i class="fas fa-graduation-cap"></i>
+                    CTI
+                </button>
+                <button class="nav-btn" data-page="suporte">
+                    <i class="fas fa-headset"></i>
+                    SUPORTE
+                </button>
+            </nav>
+            
+            <div class="user-actions">
+                <button class="user-menu-btn" id="userMenuBtn">
+                    <i class="fas fa-user"></i>
+                </button>
+                <button class="cart-btn">
+                    <i class="fas fa-shopping-cart"></i>
+                </button>
+                
+                <!-- Dropdown do usuário -->
+                <div class="user-dropdown" id="userDropdown">
+                    <button class="dropdown-btn" id="loginBtn">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Entrar
+                    </button>
+                    <button class="dropdown-btn" id="registerBtn">
+                        <i class="fas fa-user-plus"></i>
+                        Cadastrar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Home Page -->
+        <section id="home" class="page active">
+            <div class="hero-section">
+                <div class="container">
+                    <div class="products-grid">
+                        <div class="product-card eletro">
+                            <div class="product-icon">
+                                <i class="fas fa-bolt"></i>
+                                <span>ELETRO</span>
+                            </div>
+                            <div class="product-price">R$9,99</div>
+                        </div>
+                        
+                        <div class="product-card mec featured">
+                            <div class="product-icon">
+                                <i class="fas fa-cog"></i>
+                                <span>MEC</span>
+                            </div>
+                            <div class="product-price">R$9,99</div>
+                        </div>
+                        
+                        <div class="product-card info">
+                            <div class="product-icon">
+                                <i class="fas fa-microchip"></i>
+                                <span>INFO</span>
+                            </div>
+                            <div class="product-price">R$9,99</div>
+                        </div>
+                        
+                        <div class="product-card cti-card">
+                            <div class="product-icon">
+                                <i class="fas fa-school"></i>
+                                <span>CTI</span>
+                            </div>
+                            <div class="product-price">R$9,99</div>
+                        </div>
+                        
+                        <div class="product-card cti-premium">
+                            <div class="product-icon">
+                                <i class="fas fa-crown"></i>
+                                <span>CTI</span>
+                            </div>
+                            <div class="product-price">R$16,99</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sobre Page -->
+        <section id="sobre" class="page">
+            <div class="container">
+                <div class="about-content">
+                    <div class="about-text">
+                        <h2>Na Pulso Tech, unimos inovação, criatividade e espírito empreendedor para transformar ideias em realidade.</h2>
+                        <p>Somos uma startup criada por alunos do curso técnico em Informática do CTI, com o objetivo de aplicar nossos aprendizados em um projeto prático e colaborativo.</p>
+                        <p>Nosso foco é o desenvolvimento de um e-commerce moderno e acessível, onde oferecemos pulseiras exclusivas que representam os cursos do CTI. Cada produto carrega significado, identidade e a energia de quem faz parte dessa trajetória acadêmica.</p>
+                        <p>Além de vender pulseiras, nossa missão é valorizar a experiência estudantil, fortalecer o sentimento de pertencimento e mostrar que tecnologia também pode caminhar lado a lado com criatividade e estilo.</p>
+                    </div>
+                    <div class="about-icon">
+                        <i class="fas fa-bullhorn"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Produtos Page -->
+        <section id="produtos" class="page">
+            <div class="container">
+                <h2>Nossos Produtos</h2>
+                <div class="products-showcase">
+                    <!-- Produtos serão carregados aqui -->
+                </div>
+            </div>
+        </section>
+
+        <!-- CTI Page -->
+        <section id="cti" class="page">
+            <div class="container">
+                <div class="cti-content">
+                    <div class="cti-text">
+                        <h2>O Colégio Técnico Industrial "Prof. Isaac Portal Roldán" (CTI)</h2>
+                        <p>É uma instituição de ensino vinculada à Unesp – Universidade Estadual Paulista, localizada em Bauru/SP.</p>
+                        <p>A escola oferece cursos em diversas áreas, como: Informática, Mecânica e Eletrônica.</p>
+                        <p>Com laboratórios modernos, projetos interdisciplinares e incentivo ao empreendedorismo, o CTI se destaca por formar profissionais capazes de enfrentar os desafios da tecnologia e da indústria, sempre com uma visão crítica e criativa.</p>
+                        <p>Foi nesse ambiente inovador que nasceu a Pulso Tech, uma startup desenvolvida por alunos do curso técnico de Informática como forma de aplicar, na prática, os conhecimentos adquiridos em sala de aula.</p>
+                    </div>
+                    <div class="cti-images">
+                        <div class="cti-image-placeholder">
+                            <i class="fas fa-building"></i>
+                            <span>Imagem do CTI</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Suporte Page -->
+        <section id="suporte" class="page">
+            <div class="container">
+                <div class="support-content">
+                    <div class="faq-section">
+                        <h2>FAQ</h2>
+                        <div class="faq-item">MATERIAL DAS PULSEIRAS</div>
+                        <div class="faq-item">COMO CRIAR SUA CONTA</div>
+                        <div class="faq-item">HORÁRIO DE ATENDIMENTO</div>
+                    </div>
+                    
+                    <div class="contact-section">
+                        <h2>FALE CONOSCO</h2>
+                        <form class="contact-form">
+                            <input type="text" placeholder="nome" required>
+                            <input type="email" placeholder="Email" required>
+                            <input type="text" placeholder="assunto" required>
+                            <textarea placeholder="mensagem" required></textarea>
+                            <button type="submit">ENVIAR</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal de Login -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="image"><div><source></div>source></div>
+                <button class="close-btn" id="closeLoginModal">&times;</button>
+            </div>
+            <div class="user-icon">
+                <i class="fas fa-user-circle"></i>
+            </div>
+            <form class="auth-form">
+                <div class="form-group">
+                    <label>e-mail:</label>
+                    <input type="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Senha:</label>
+                    <input type="password" required>
+                </div>
+                <button type="submit" class="auth-btn">INICIAR SESSÃO</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de Cadastro -->
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="logo-small">PulsoTech</div>
+                <button class="close-btn" id="closeRegisterModal">&times;</button>
+            </div>
+            <div class="user-icon">
+                <i class="fas fa-user-circle"></i>
+            </div>
+            <form class="auth-form">
+                <div class="form-group">
+                    <label>Nome:</label>
+                    <input type="text" required>
+                </div>
+                <div class="form-group">
+                    <label>e-mail:</label>
+                    <input type="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Senha:</label>
+                    <input type="password" required>
+                </div>
+                <button type="submit" class="auth-btn">CADASTRAR-SE</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

@@ -8,204 +8,79 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-    <!-- Header -->
     <header class="header">
         <div class="container">
-            <div class="logo">
-                <a href="index.html">
-                    <img src="logo-Photoroom.png" alt="PulsoTech">
-                </a>
-            </div>
-            
+            <div class="logo"><a href="home.html"><img src="logo-Photoroom.png" alt="PulsoTech"></a></div>
             <nav class="nav">
-                <a href="sobre.html" class="nav-btn">
-                    <i class="fas fa-info-circle"></i>
-                    SOBRE
-                </a>
-                <a href="produtos.html" class="nav-btn active">
-                    <i class="fas fa-shopping-bag"></i>
-                    PRODUTOS
-                </a>
-                <a href="cti.html" class="nav-btn">
-                    <i class="fas fa-graduation-cap"></i>
-                    CTI
-                </a>
-                <a href="suporte.html" class="nav-btn">
-                    <i class="fas fa-headset"></i>
-                    SUPORTE
-                </a>
+                <a href="sobre.html" class="nav-btn"><i class="fas fa-info-circle"></i> SOBRE</a>
+                <a href="produtos.html" class="nav-btn active"><i class="fas fa-shopping-bag"></i> PRODUTOS</a>
+                <a href="cti.html" class="nav-btn"><i class="fas fa-graduation-cap"></i> CTI</a>
+                <a href="suporte.html" class="nav-btn"><i class="fas fa-headset"></i> SUPORTE</a>
             </nav>
-            
             <div class="user-actions">
-                <button class="user-menu-btn" id="userMenuBtn">
-                    <i class="fas fa-user"></i>
-                </button>
-                <button class="cart-btn">
-                    <i class="fas fa-shopping-cart"></i>
-                </button>
-                
-                <!-- Dropdown do usuário -->
+                <button class="user-menu-btn" id="userMenuBtn"><i class="fas fa-user"></i></button>
+                <button class="cart-btn"><i class="fas fa-shopping-cart"></i></button>
                 <div class="user-dropdown" id="userDropdown">
-                    <button class="dropdown-btn" id="loginBtn">
-                        <i class="fas fa-sign-in-alt"></i>
-                        Entrar
-                    </button>
-                    <button class="dropdown-btn" id="registerBtn">
-                        <i class="fas fa-user-plus"></i>
-                        Cadastrar
-                    </button>
+                    <button class="dropdown-btn" id="loginBtn"><i class="fas fa-sign-in-alt"></i> Entrar</button>
+                    <button class="dropdown-btn" id="registerBtn"><i class="fas fa-user-plus"></i> Cadastrar</button>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- Main Content -->
     <main class="main-content">
         <section class="products-section">
             <div class="container">
                 <div class="products-grid">
-                    <div class="product-card eletro">
-                        <div class="product-image">
-                            <img src="PulseiraEletro.png" alt="Pulseira Eletro">
-                        </div>
-                        <div class="product-info">
-                            <font color="White"><b>ELETRO</b><br></font>
-                            <div class="product-price">R$9,99</div>
-                        </div>
+                    <div class="product-card eletro" data-modal-target="#eletroModal">
+                        <div class="product-image"><img src="PulseiraEletro.png" alt="Pulseira Eletro"></div>
+                        <font color="White"><b>ELETRO</b><br></font>
+                        <div class="product-price">R$9,99</div>
                     </div>
-                    
-                    <div class="product-card mec featured">
-                        <div class="product-image">
-                            <img src="PulseiraMec.png" alt="Pulseira MEC">
-                        </div>
-                        <div class="product-info">
-                            <font color="White"><b>MEC</b><br></font>
-                            <div class="product-price">R$9,99</div>
-                        </div>
+                    <div class="product-card mec featured" data-modal-target="#mecModal">
+                        <div class="product-image"><img src="PulseiraMec.png" alt="Pulseira MEC"></div>
+                        <font color="White"><b>MEC</b><br></font>
+                        <div class="product-price">R$9,99</div>
                     </div>
-                    
-                    <div class="product-card info">
-                        <div class="product-image">
-                            <img src="PulseiraInfo.png" alt="Pulseira INFO">
-                        </div>
-                        <div class="product-info">
-                            <font color="White"><b>INFO</b><br></font>
-                            <div class="product-price">R$9,99</div>
-                        </div>
-                        <div class="product-description">
-                        </div>
+                    <div class="product-card info" data-modal-target="#infoModal">
+                        <div class="product-image"><img src="PulseiraInfo.png" alt="Pulseira INFO"></div>
+                        <font color="White"><b>INFO</b><br></font>
+                        <div class="product-price">R$9,99</div>
                     </div>
-                    
-                    <div class="product-card cti-card">
-                        <div class="product-image">
-                            <img src="PulseiraCTI.png" alt="Pulseira CTI">
-                        </div>
-                        <div class="product-info">
-                            <font color="White"><b>CTI</b><br></font>
-                            <div class="product-price">R$9,99</div>
-                        </div>
+                    <div class="product-card cti-card" data-modal-target="#ctiModal">
+                        <div class="product-image"><img src="PulseiraCTI.png" alt="Pulseira CTI"></div>
+                        <font color="White"><b>CTI</b><br></font>
+                        <div class="product-price">R$9,99</div>
                     </div>
-                    
-                    <div class="product-card cti-premium">
-                        <div class="product-image">
-                            <img src="PulseiraCTI.png" alt="Pulseira CTI Premium">
-                        </div>
-                        <div class="product-info">
-                            <font color="White"> <b>COMBO</b><br></font>
-                            <div class="product-price">R$16,99</div>
-                        </div>
+                    <div class="product-card cti-premium" data-modal-target="#comboModal">
+                        <div class="product-image"><img src="PulseiraCTI.png" alt="Pulseira CTI Premium"></div>
+                        <font color="White"><b>COMBO</b><br></font>
+                        <div class="product-price">R$16,99</div>
                     </div>
                 </div>
             </div>
         </section>
     </main>
-       <!-- Modal de Login -->
-    <div class="modal" id="loginModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="logo img"><img src="logo-Photoroom.png" alt="Logo"></div>
-                <button class="close-btn" id="closeLoginModal">&times;</button>
-            </div>
-            <div class="user-icon">
-                <i class="fas fa-user-circle"></i>
-            </div>
-            <form class="auth-form">
-                <div class="form-group">
-                    <label>e-mail:</label>
-                    <input type="email" required>
-                </div>
-                <div class="form-group">
-                    <label>Senha:</label>
-                    <input type="password" required>
-                </div>
-                <button type="submit" class="auth-btn">INICIAR SESSÃO</button>
-            </form>
-        </div>
-    </div>
 
-    <!-- Modal de Cadastro -->
-    <div class="modal" id="registerModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="logo img">
+    <div class="modal" id="loginModal"><div class="modal-content"><div class="modal-header"><div class="logo img"><img src="logo-Photoroom.png" alt="Logo"></div><button class="close-btn" data-close-modal>&times;</button></div><div class="user-icon"><i class="fas fa-user-circle"></i></div><form class="auth-form"><div class="form-group"><label>e-mail:</label><input type="email" required></div><div class="form-group"><label>Senha:</label><input type="password" required></div><button type="submit" class="auth-btn">INICIAR SESSÃO</button></form></div></div>
+    <div class="modal" id="registerModal"><div class="modal-content"><div class="modal-header"><div class="logo img"><img src="logo-Photoroom.png" alt="Logo"></div><button class="close-btn" data-close-modal>&times;</button></div><div class="user-icon"><i class="fas fa-user-circle"></i></div><form class="auth-form"><div class="form-group"><label>Nome:</label><input type="text" required></div><div class="form-group"><label>e-mail:</label><input type="email" required></div><div class="form-group"><label>Senha:</label><input type="password" required></div><button type="submit" class="auth-btn">CADASTRAR-SE</button></form></div></div>
 
-                    <img src="logo-Photoroom.png" alt="Logo">
-                </div>
-                <button class="close-btn" id="closeRegisterModal">&times;</button>
-            </div>
-            <div class="user-icon">
-                <i class="fas fa-user-circle"></i>
-            </div>
-            <form class="auth-form">
-                <div class="form-group">
-                    <label>Nome:</label>
-                    <input type="text" required>
-                </div>
-                <div class="form-group">
-                    <label>e-mail:</label>
-                    <input type="email" required>
-                </div>
-                <div class="form-group">
-                    <label>Senha:</label>
-                    <input type="password" required>
-                </div>
-                <button type="submit" class="auth-btn">CADASTRAR-SE</button>
-            </form>
-        </div>
-    </div>
+    <div class="modal" id="eletroModal"><div class="modal-content product-modal-content"><div class="modal-header"><div class="logo img"><img src="logo-Photoroom.png" alt="Logo"></div><button class="close-btn" data-close-modal>&times;</button></div><div class="product-modal-body"><div class="product-modal-image"><img src="PulseiraEletro.png" alt="Pulseira Eletro"></div><div class="product-modal-details"><h2>Pulseira Eletro</h2><p>Mostre seu orgulho pelo curso de Eletrônica com esta pulseira estilosa e vibrante.</p><div class="product-price-modal">R$9,99</div><button class="auth-btn">ADICIONAR AO CARRINHO</button></div></div></div></div>
+    <div class="modal" id="mecModal"><div class="modal-content product-modal-content"><div class="modal-header"><div class="logo img"><img src="logo-Photoroom.png" alt="Logo"></div><button class="close-btn" data-close-modal>&times;</button></div><div class="product-modal-body"><div class="product-modal-image"><img src="PulseiraMec.png" alt="Pulseira Mecânica"></div><div class="product-modal-details"><h2>Pulseira Mecânica</h2><p>A pulseira perfeita para os estudantes de Mecânica, combinando durabilidade e design.</p><div class="product-price-modal">R$9,99</div><button class="auth-btn">ADICIONAR AO CARRINHO</button></div></div></div></div>
+    <div class="modal" id="infoModal"><div class="modal-content product-modal-content"><div class="modal-header"><div class="logo img"><img src="logo-Photoroom.png" alt="Logo"></div><button class="close-btn" data-close-modal>&times;</button></div><div class="product-modal-body"><div class="product-modal-image"><img src="PulseiraInfo.png" alt="Pulseira Info"></div><div class="product-modal-details"><h2>Pulseira Informática</h2><p>Represente o curso de Informática com esta pulseira moderna e cheia de estilo.</p><div class="product-price-modal">R$9,99</div><button class="auth-btn">ADICIONAR AO CARRINHO</button></div></div></div></div>
+    <div class="modal" id="ctiModal"><div class="modal-content product-modal-content"><div class="modal-header"><div class="logo img"><img src="logo-Photoroom.png" alt="Logo"></div><button class="close-btn" data-close-modal>&times;</button></div><div class="product-modal-body"><div class="product-modal-image"><img src="PulseiraCTI.png" alt="Pulseira CTI"></div><div class="product-modal-details"><h2>Pulseira CTI</h2><p>A pulseira oficial para todos os alunos do CTI, um símbolo de orgulho e pertencimento.</p><div class="product-price-modal">R$9,99</div><button class="auth-btn">ADICIONAR AO CARRINHO</button></div></div></div></div>
+    <div class="modal" id="comboModal"><div class="modal-content product-modal-content"><div class="modal-header"><div class="logo img"><img src="logo-Photoroom.png" alt="Logo"></div><button class="close-btn" data-close-modal>&times;</button></div><div class="product-modal-body"><div class="product-modal-image"><img src="PulseiraCTI.png" alt="Pulseira Combo"></div><div class="product-modal-details"><h2>Combo de Pulseiras</h2><p>Leve duas pulseiras do CTI com um desconto especial e mostre seu orgulho em dobro!</p><div class="product-price-modal">R$16,99</div><button class="auth-btn">ADICIONAR AO CARRINHO</button></div></div></div></div>
+
     <script src="script.js"></script>
 </body>
 <footer class="footer">
     <div class="container">
         <div class="footer-columns">
-            <div class="footer-column">
-                <h3>Institucional</h3>
-                <ul>
-                    <li><a href="#">Sobre a PulsoTech</a></li>
-                    <li><a href="#">Trabalhe Conosco</a></li>
-                    <li><a href="#">Termos e Condições</a></li>
-                    <li><a href="#">Políticas de Privacidade</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h3>Atendimento</h3>
-                <ul>
-                    <li><a href="#">Contato</a></li>
-                    <li><a href="#">Perguntas Frequentes</a></li>
-                    <li><a href="#">Suporte Técnico</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h3>Redes Sociais</h3>
-                <div class="social-icons">
-                    <a href=""><i class="fab fa-instagram"></i></a>
-                </div>
-            </div>
+            <div class="footer-column"><h3>Institucional</h3><ul><li><a href="#">Sobre a PulsoTech</a></li><li><a href="#">Trabalhe Conosco</a></li><li><a href="#">Termos e Condições</a></li><li><a href="#">Políticas de Privacidade</a></li></ul></div>
+            <div class="footer-column"><h3>Atendimento</h3><ul><li><a href="#">Contato</a></li><li><a href="#">Perguntas Frequentes</a></li><li><a href="#">Suporte Técnico</a></li></ul></div>
+            <div class="footer-column"><h3>Redes Sociais</h3><div class="social-icons"><a href=""><i class="fab fa-instagram"></i></a></div></div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2025 PulsoTech. Todos os direitos reservados.</p>
-        </div>
+        <div class="footer-bottom"><p>&copy; 2025 PulsoTech. Todos os direitos reservados.</p></div>
     </div>
 </footer>
 </html>
-

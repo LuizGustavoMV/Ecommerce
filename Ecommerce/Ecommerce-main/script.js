@@ -1,135 +1,110 @@
 // Aguarda o carregamento do DOM
 document.addEventListener('DOMContentLoaded', () => {
 
-    // Seletores principais
-    const navBtns = document.querySelectorAll('.nav-btn');
-    const pages = document.querySelectorAll('.page');
+    // Seletores dos elementos interativos
     const userMenuBtn = document.getElementById('userMenuBtn');
     const userDropdown = document.getElementById('userDropdown');
     const loginModal = document.getElementById('loginModal');
     const registerModal = document.getElementById('registerModal');
-  
-    // ====================
-    // Navegação
-    // ====================
-    function showPage(pageId) {
-      pages.forEach(p => p.classList.remove('active'));
-      navBtns.forEach(b => b.classList.remove('active'));
-  
-      const page = document.getElementById(pageId);
-      const btn = document.querySelector(`[data-page="${pageId}"]`);
-      page?.classList.add('active');
-      btn?.classList.add('active');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  
-    navBtns.forEach(b =>
-      b.addEventListener('click', () => showPage(b.dataset.page))
-    );
-  
-    // ====================
-    // Menu do usuário
-    // ====================
-    userMenuBtn?.addEventListener('click', e => {
-      e.stopPropagation();
-      userDropdown.classList.toggle('active');
-    });
-  
-    document.addEventListener('click', e => {
-      if (!userMenuBtn.contains(e.target) && !userDropdown.contains(e.target))
-        userDropdown.classList.remove('active');
-    });
-  
-    // ====================
-    // Modais
-    // ====================
+    const productCards = document.querySelectorAll('.product-card');
+    
+    // ===================================
+    // ABRIR E FECHAR MODAIS E DROPDOWNS
+    // ===================================
+
+    // Função para abrir um modal
     function openModal(modal) {
-      modal?.classList.add('active');
-      userDropdown?.classList.remove('active');
+        if (modal) {
+            modal.classList.add('active');
+        }
+        // Fecha o dropdown do usuário se estiver aberto
+        if (userDropdown) {
+            userDropdown.classList.remove('active');
+        }
     }
+
+    // Função para fechar um modal
     function closeModal(modal) {
-      modal?.classList.remove('active');
+        if (modal) {
+            modal.classList.remove('active');
+        }
     }
-  
+
+    // Evento para abrir o dropdown do usuário
+    userMenuBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        userDropdown?.classList.toggle('active');
+    });
+
+    // Evento para fechar o dropdown se clicar fora
+    document.addEventListener('click', (e) => {
+        if (userMenuBtn && !userMenuBtn.contains(e.target) && userDropdown && !userDropdown.contains(e.target)) {
+            userDropdown.classList.remove('active');
+        }
+    });
+
+    // Eventos para abrir modais de login/cadastro
     document.getElementById('loginBtn')?.addEventListener('click', () => openModal(loginModal));
     document.getElementById('registerBtn')?.addEventListener('click', () => openModal(registerModal));
-    document.getElementById('closeLoginModal')?.addEventListener('click', () => closeModal(loginModal));
-    document.getElementById('closeRegisterModal')?.addEventListener('click', () => closeModal(registerModal));
-  
-    [loginModal, registerModal].forEach(m =>
-      m?.addEventListener('click', e => e.target === m && closeModal(m))
-    );
-  
-    // ====================
-    // Animações
-    // ====================
-    document.querySelectorAll('.product-card').forEach(c => {
-      c.addEventListener('mouseenter', () => c.style.transform = 'translateY(-15px) scale(1.02)');
-      c.addEventListener('mouseleave', () => c.style.transform = '');
-    });
-  
-    function animateOnScroll() {
-      document.querySelectorAll('.product-card, .about-content, .cti-content, .support-content')
-        .forEach(el => {
-          if (el.getBoundingClientRect().top < window.innerHeight - 150) {
-            el.style.opacity = '1';
-            el.style.transform = 'translateY(0)';
-          }
+
+    // Eventos para abrir modais de produto
+    productCards.forEach(card => {
+        card.addEventListener('click', () => {
+            const modalId = card.dataset.modalTarget;
+            if (modalId) {
+                const modal = document.querySelector(modalId);
+                openModal(modal);
+            }
         });
-    }
-    window.addEventListener('scroll', animateOnScroll);
-    animateOnScroll();
-  
+    });
+    
+    // Eventos para fechar QUALQUER modal (botão 'x' ou clique fora)
+    const allModals = document.querySelectorAll('.modal');
+    allModals.forEach(modal => {
+        // Fechar clicando no 'x'
+        const closeBtn = modal.querySelector('[data-close-modal]');
+        if(closeBtn) {
+            closeBtn.addEventListener('click', () => closeModal(modal));
+        }
+
+        // Fechar clicando fora do conteúdo do modal
+        modal.addEventListener('click', e => {
+            if (e.target === modal) {
+                closeModal(modal);
+            }
+        });
+    });
+
     // ====================
-    // Formulários
+    // SIMULAÇÃO DE ENVIO DE FORMULÁRIO
     // ====================
     function fakeSubmit(form, successText = 'ENVIADO!') {
-      form.addEventListener('submit', e => {
-        e.preventDefault();
-        const btn = form.querySelector('button[type="submit"], .auth-btn');
-        const original = btn.textContent;
-        btn.textContent = 'PROCESSANDO...'; btn.disabled = true;
-  
-        setTimeout(() => {
-          btn.textContent = successText; btn.style.background = '#4CAF50';
-          setTimeout(() => {
-            form.reset();
-            btn.textContent = original; btn.disabled = false; btn.style.background = '';
-            closeModal(loginModal); closeModal(registerModal);
-          }, 1500);
-        }, 1500);
-      });
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            const btn = form.querySelector('button[type="submit"], .auth-btn');
+            const originalText = btn.textContent;
+            btn.textContent = 'PROCESSANDO...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                btn.textContent = successText;
+                btn.style.backgroundColor = '#4CAF50';
+                setTimeout(() => {
+                    form.reset();
+                    btn.textContent = originalText;
+                    btn.disabled = false;
+                    btn.style.backgroundColor = '';
+                    // Fecha o modal após o sucesso
+                    const parentModal = form.closest('.modal');
+                    closeModal(parentModal);
+                }, 1500);
+            }, 1000);
+        });
     }
-  
-    document.querySelector('.contact-form') && fakeSubmit(document.querySelector('.contact-form'), 'ENVIADO!');
-    document.querySelectorAll('.auth-form').forEach(f => fakeSubmit(f, 'SUCESSO!'));
-  
-    // ====================
-    // FAQ
-    // ====================
-    document.querySelectorAll('.faq-item').forEach(i =>
-      i.addEventListener('click', () => {
-        i.style.background = 'rgba(255,255,255,0.3)';
-        setTimeout(() => i.style.background = '', 2000);
-      })
-    );
-  
-    // ====================
-    // Efeito digitação
-    // ====================
-    function typeWriter(el, text, speed = 50) {
-      el.textContent = '';
-      [...text].forEach((ch, i) =>
-        setTimeout(() => el.textContent += ch, i * speed)
-      );
-    }
-  
-    document.querySelectorAll('h2').forEach((t, i) =>
-      setTimeout(() => {
-        if (t.closest('.page.active') || t.closest('#home')) typeWriter(t, t.textContent);
-      }, i * 500)
-    );
-  
-    console.log('PulsoTech Website carregado!');
-  });
-  
+
+    document.querySelector('.contact-form') && fakeSubmit(document.querySelector('.contact-form'));
+    document.querySelectorAll('.auth-form').forEach(form => fakeSubmit(form, 'SUCESSO!'));
+
+
+    console.log('PulsoTech Website carregado e scripts funcionando!');
+});

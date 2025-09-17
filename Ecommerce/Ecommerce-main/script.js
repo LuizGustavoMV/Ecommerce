@@ -1,110 +1,128 @@
-// Aguarda o carregamento do DOM
 document.addEventListener('DOMContentLoaded', () => {
 
-    // Seletores dos elementos interativos
-    const userMenuBtn = document.getElementById('userMenuBtn');
-    const userDropdown = document.getElementById('userDropdown');
-    const loginModal = document.getElementById('loginModal');
-    const registerModal = document.getElementById('registerModal');
-    const productCards = document.querySelectorAll('.product-card');
-    
-    // ===================================
-    // ABRIR E FECHAR MODAIS E DROPDOWNS
-    // ===================================
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const saveCart = () => localStorage.setItem('cart', JSON.stringify(cart));
 
-    // Função para abrir um modal
+    // Função para adicionar item (agora aceita quantidade)
+    const addToCart = (product, quantity) => {
+        const existingItem = cart.find(item => item.id === product.id);
+        if (existingItem) {
+            existingItem.quantity += quantity;
+        } else {
+            cart.push({ ...product, quantity: quantity });
+        }
+        saveCart();
+        updateCartIcon();
+    };
+
+    // Função para atualizar o ícone do carrinho
+    const updateCartIcon = () => {
+        const cartCounter = document.getElementById('cartCounter');
+        if (cartCounter) {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCounter.textContent = totalItems;
+        }
+    };
+    
+    // LÓGICA PARA O SELETOR DE QUANTIDADE NOS MODAIS
+    const handleQuantityButtons = () => {
+        document.querySelectorAll('.quantity-selector-modal').forEach(selector => {
+            const decreaseBtn = selector.querySelector('.decrease');
+            const increaseBtn = selector.querySelector('.increase');
+            const valueSpan = selector.querySelector('.quantity-value');
+
+            decreaseBtn.addEventListener('click', () => {
+                let currentValue = parseInt(valueSpan.textContent);
+                if (currentValue > 1) {
+                    valueSpan.textContent = currentValue - 1;
+                }
+            });
+
+            increaseBtn.addEventListener('click', () => {
+                let currentValue = parseInt(valueSpan.textContent);
+                valueSpan.textContent = currentValue + 1;
+            });
+        });
+    };
+
+    // LÓGICA PARA OS BOTÕES DE AÇÃO DOS MODAIS DE PRODUTO
+    const addModalActionListeners = () => {
+        document.querySelectorAll('.product-modal-new-content').forEach(modal => {
+            const addToCartBtn = modal.querySelector('.btn-add-cart');
+            const buyNowBtn = modal.querySelector('.btn-comprar');
+            
+            // Botão "ADICIONAR AO CARRINHO"
+            addToCartBtn.addEventListener('click', (e) => {
+                const quantity = parseInt(modal.querySelector('.quantity-value').textContent);
+                const product = { ...e.target.dataset };
+                
+                addToCart(product, quantity);
+                
+                // Feedback visual
+                e.target.textContent = 'ADICIONADO!';
+                setTimeout(() => { e.target.textContent = 'ADICIONAR AO CARRINHO'; }, 2000);
+            });
+
+            // Botão "COMPRAR"
+            buyNowBtn.addEventListener('click', (e) => {
+                const quantity = parseInt(modal.querySelector('.quantity-value').textContent);
+                const product = { ...e.target.dataset };
+
+                addToCart(product, quantity);
+                
+                // Redireciona para o carrinho
+                window.location.href = 'carrinho.html';
+            });
+        });
+    };
+
+    // ===== GESTÃO DE TODOS OS MODAIS (LOGIN, CADASTRO, PRODUTO) =====
+    const allModals = document.querySelectorAll('.modal');
+    
     function openModal(modal) {
         if (modal) {
+            // Reseta a quantidade para 1 toda vez que abre um modal de produto
+            const quantityValue = modal.querySelector('.quantity-value');
+            if (quantityValue) {
+                quantityValue.textContent = '1';
+            }
             modal.classList.add('active');
         }
-        // Fecha o dropdown do usuário se estiver aberto
-        if (userDropdown) {
-            userDropdown.classList.remove('active');
-        }
     }
-
-    // Função para fechar um modal
+    
     function closeModal(modal) {
-        if (modal) {
-            modal.classList.remove('active');
-        }
+        if (modal) modal.classList.remove('active');
     }
 
-    // Evento para abrir o dropdown do usuário
-    userMenuBtn?.addEventListener('click', (e) => {
-        e.stopPropagation();
-        userDropdown?.classList.toggle('active');
-    });
-
-    // Evento para fechar o dropdown se clicar fora
-    document.addEventListener('click', (e) => {
-        if (userMenuBtn && !userMenuBtn.contains(e.target) && userDropdown && !userDropdown.contains(e.target)) {
-            userDropdown.classList.remove('active');
-        }
-    });
-
-    // Eventos para abrir modais de login/cadastro
-    document.getElementById('loginBtn')?.addEventListener('click', () => openModal(loginModal));
-    document.getElementById('registerBtn')?.addEventListener('click', () => openModal(registerModal));
-
-    // Eventos para abrir modais de produto
-    productCards.forEach(card => {
-        card.addEventListener('click', () => {
-            const modalId = card.dataset.modalTarget;
-            if (modalId) {
-                const modal = document.querySelector(modalId);
-                openModal(modal);
-            }
+    // Gatilhos para abrir os modais de PRODUTO
+    document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+        trigger.addEventListener('click', () => {
+            const modal = document.querySelector(trigger.dataset.modalTarget);
+            openModal(modal);
         });
     });
-    
-    // Eventos para fechar QUALQUER modal (botão 'x' ou clique fora)
-    const allModals = document.querySelectorAll('.modal');
-    allModals.forEach(modal => {
-        // Fechar clicando no 'x'
-        const closeBtn = modal.querySelector('[data-close-modal]');
-        if(closeBtn) {
-            closeBtn.addEventListener('click', () => closeModal(modal));
-        }
 
-        // Fechar clicando fora do conteúdo do modal
+    // Gatilhos para abrir os modais de LOGIN e CADASTRO
+    document.getElementById('loginBtn')?.addEventListener('click', () => openModal(document.getElementById('loginModal')));
+    document.getElementById('registerBtn')?.addEventListener('click', () => openModal(document.getElementById('registerModal')));
+
+    // Gatilho para fechar QUALQUER modal
+    allModals.forEach(modal => {
         modal.addEventListener('click', e => {
-            if (e.target === modal) {
+            if (e.target.closest('[data-close-modal]') || e.target === modal) {
                 closeModal(modal);
             }
         });
     });
 
-    // ====================
-    // SIMULAÇÃO DE ENVIO DE FORMULÁRIO
-    // ====================
-    function fakeSubmit(form, successText = 'ENVIADO!') {
-        form.addEventListener('submit', e => {
-            e.preventDefault();
-            const btn = form.querySelector('button[type="submit"], .auth-btn');
-            const originalText = btn.textContent;
-            btn.textContent = 'PROCESSANDO...';
-            btn.disabled = true;
-
-            setTimeout(() => {
-                btn.textContent = successText;
-                btn.style.backgroundColor = '#4CAF50';
-                setTimeout(() => {
-                    form.reset();
-                    btn.textContent = originalText;
-                    btn.disabled = false;
-                    btn.style.backgroundColor = '';
-                    // Fecha o modal após o sucesso
-                    const parentModal = form.closest('.modal');
-                    closeModal(parentModal);
-                }, 1500);
-            }, 1000);
-        });
+    // ===== INICIALIZAÇÃO E OUTRAS FUNÇÕES =====
+    updateCartIcon();
+    handleQuantityButtons();
+    addModalActionListeners();
+    // (Aqui entraria a lógica do carrinho.html, se estivéssemos nessa página)
+    if (document.getElementById('cartItemsContainer')) {
+        // Funções da página do carrinho, se houver
     }
-
-    document.querySelector('.contact-form') && fakeSubmit(document.querySelector('.contact-form'));
-    document.querySelectorAll('.auth-form').forEach(form => fakeSubmit(form, 'SUCESSO!'));
-
-
-    console.log('PulsoTech Website carregado e scripts funcionando!');
+    
+    console.log('PulsoTech site inicializado!');
 });
